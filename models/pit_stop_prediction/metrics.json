@@ -1,0 +1,19 @@
+{
+  "pr_auc": 0.7004412346747299,
+  "best_threshold_f1": 0.6826194524765015,
+  "precision_at_best_threshold": 0.7839195979899497,
+  "recall_at_best_threshold": 0.5564803804994055,
+  "f1_at_best_threshold": 0.6509040328940897,
+  "hyperparameters": {
+    "max_depth": 8,
+    "learning_rate": 0.1,
+    "n_estimators": 300,
+    "min_child_weight": 1,
+    "subsample": 0.9,
+    "colsample_bytree": 0.7
+  },
+  "train_seasons": "2018-2024",
+  "test_season": "2025",
+  "positive_class_rate_train": 0.030365564210774198,
+  "positive_class_rate_test": 0.03151110944583911
+}
