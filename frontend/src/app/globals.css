@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+:root {
+  --color-graphite: #0b0c0e;
+  --color-surface: #141619;
+  --color-offwhite: #f2f2ef;
+  --color-grey: #9a9da2;
+  --color-border: #2a2d31;
+  --color-red: #e10600;
+  --color-slate: #d5d9de;
+  --color-steel: #8ea0b5;
+  --color-navy: #0a1120;
+  --color-navy-mid: #101a30;
+  --color-card-surface: linear-gradient(160deg, #F4F5F3 0%, #E2E5E9 100%);
+  --color-card-border: rgba(11, 12, 14, 0.12);
+  --color-card-heading: #14161A;
+  --color-card-text: #4B4F55;
+  --color-card-label: #6B7280;
+}
+
+@theme inline {
+  --color-graphite: var(--color-graphite);
+  --color-surface: var(--color-surface);
+  --color-offwhite: var(--color-offwhite);
+  --color-grey: var(--color-grey);
+  --color-border: var(--color-border);
+  --color-red: var(--color-red);
+  --color-slate: var(--color-slate);
+  --color-steel: var(--color-steel);
+  --color-navy: var(--color-navy);
+  --color-navy-mid: var(--color-navy-mid);
+  --color-card-surface: var(--color-card-surface);
+  --color-card-border: var(--color-card-border);
+  --color-card-heading: var(--color-card-heading);
+  --color-card-text: var(--color-card-text);
+  --color-card-label: var(--color-card-label);
+  --font-display: var(--font-display);
+  --font-technical: var(--font-technical);
+  --font-body: var(--font-body);
+}
+
+body {
+  background: var(--color-graphite);
+  color: var(--color-offwhite);
+  font-family: var(--font-body);
+}
+
+@keyframes glow-breathe {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes drift-up {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.3; }
+  100% { transform: translateY(-60px) translateX(10px); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+@keyframes scroll-dot {
+  0% { transform: translateY(0); opacity: 0; }
+  25% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { transform: translateY(22px); opacity: 0; }
+}
