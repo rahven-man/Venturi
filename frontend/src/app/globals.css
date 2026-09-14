@@ -16,6 +16,7 @@
   --color-card-heading: #14161A;
   --color-card-text: #4B4F55;
   --color-card-label: #6B7280;
+  --font-ranade: "Ranade", var(--font-display), sans-serif;
 }
 
 @theme inline {

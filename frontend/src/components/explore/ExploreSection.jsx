@@ -111,7 +111,7 @@ export default function ExploreSection() {
           description="Machine learning models trained on Formula One data to estimate performance before the outcome is known."
           tags={["LAP TIME", "PIT STOP", "TYRE DEGRADATION"]}
           ctaLabel="EXPLORE MODELS"
-          href="/intelligence"
+          href='#intelligence'
           image="/images/Intelligence.jpg"
           imageAlt="Formula One engineering visualization representing predictive intelligence"
         />
@@ -122,7 +122,7 @@ export default function ExploreSection() {
           description="Explore drivers, teams, circuits and championship history through structured Formula One data."
           tags={["DRIVERS", "TEAMS", "CIRCUITS", "STANDINGS"]}
           ctaLabel="EXPLORE ANALYTICS"
-          href="/analytics"
+          href="#analytics"
           image="/images/Analytics.jpg"
           imageAlt="Formula One data analytics visualization"
         />

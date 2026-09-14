@@ -1,4 +1,4 @@
-import { Space_Grotesk, Barlow_Condensed, Manrope } from "next/font/google";
+import { Space_Grotesk, Barlow_Condensed, Manrope,Instrument_Serif} from "next/font/google";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -19,6 +19,12 @@ const manrope = Manrope({
   weight: ["400", "500", "600"],
 });
 
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
 export const metadata = {
   title: "VENTURI — Engineering Intelligence for Formula One",
   description: "A Formula One engineering intelligence platform.",
@@ -28,8 +34,13 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${barlowCondensed.variable} ${manrope.variable} h-full antialiased`}
-    >
+      className={`${spaceGrotesk.variable} ${barlowCondensed.variable} ${manrope.variable} ${instrumentSerif.variable} h-full antialiased`}    >
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://api.fontshare.com/v2/css?f[]=ranade@400,500,600,700&display=swap"
+        />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
