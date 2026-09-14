@@ -1,4 +1,4 @@
-import { Space_Grotesk, Barlow_Condensed, Manrope,Instrument_Serif} from "next/font/google";
+import { Space_Grotesk, Barlow_Condensed, Manrope,Instrument_Serif,Mr_De_Haviland} from "next/font/google";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -11,6 +11,12 @@ const barlowCondensed = Barlow_Condensed({
   variable: "--font-technical",
   subsets: ["latin"],
   weight: ["500", "600"],
+});
+
+const mrDeHaviland = Mr_De_Haviland({
+  variable: "--font-script",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 const manrope = Manrope({
@@ -34,7 +40,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${barlowCondensed.variable} ${manrope.variable} ${instrumentSerif.variable} h-full antialiased`}    >
+      className={`${spaceGrotesk.variable} ${barlowCondensed.variable} ${manrope.variable} ${mrDeHaviland.variable} ${instrumentSerif.variable} h-full antialiased`}    >
       <head>
         <link
           rel="stylesheet"

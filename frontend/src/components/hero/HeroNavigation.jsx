@@ -18,16 +18,16 @@ export default function HeroNavigation() {
             className="text-lg tracking-[0.40em]"
             style={{
               fontFamily: "var(--font-display)",
-              fontWeight: 700,
-              color: "var(--color-offwhite)",
+              fontWeight: 800,
+              color: "#071522",
               opacity: 0.95,
             }}
           >
             VENTURI
           </span>
           <span
-            className="hidden md:block text-[10px] tracking-[0.2em] mt-1"
-            style={{ fontFamily: "var(--font-technical)", color: "var(--color-white)", opacity: 0.95 }}
+            className="hidden md:block text-[10px] tracking-[0.3em] mt-1"
+            style={{ fontFamily: "var(--font-technical)", color: "#071522", opacity: 0.75, fontWeight:700 }}
           >
             ENGINEERING INTELLIGENCE — FORMULA ONE
           </span>

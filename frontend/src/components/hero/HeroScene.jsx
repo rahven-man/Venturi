@@ -11,7 +11,7 @@ export default function HeroScene() {
     <div className="absolute inset-0 overflow-hidden">
       <div data-anim="scene-image" className="absolute inset-0">
         <Image
-          src="/images/HeroSection.png"
+          src="/images/HeroesSec.png"
           alt="Formula One car under a sunset sky, rear tyre smoke rising off a wet track"
           fill
           priority

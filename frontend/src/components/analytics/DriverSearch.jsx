@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { driverTheme } from "./theme";
 
 export default function DriverSearch({ drivers }) {
   const [query, setQuery] = useState("");
@@ -17,9 +18,7 @@ export default function DriverSearch({ drivers }) {
 
   useEffect(() => {
     function handleClickOutside(e) {
-      if (containerRef.current && !containerRef.current.contains(e.target)) {
-        setOpen(false);
-      }
+      if (containerRef.current && !containerRef.current.contains(e.target)) setOpen(false);
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -35,6 +34,8 @@ export default function DriverSearch({ drivers }) {
     if (e.key === "Escape") setOpen(false);
     if (e.key === "Enter" && matches.length > 0) goToDriver(matches[0]);
   }
+
+  const showNoResults = open && query.trim().length > 0 && matches.length === 0;
 
   return (
     <div ref={containerRef} className="relative">
@@ -52,8 +53,8 @@ export default function DriverSearch({ drivers }) {
         className="w-full bg-transparent outline-none text-base py-3 px-4"
         style={{
           fontFamily: "var(--font-body)",
-          color: "var(--color-offwhite)",
-          border: "1px solid var(--color-border)",
+          color: driverTheme.paleBlue,
+          border: "1px solid rgba(193,232,255,0.25)",
           borderRadius: "6px",
         }}
       />
@@ -61,22 +62,18 @@ export default function DriverSearch({ drivers }) {
       {open && matches.length > 0 && (
         <ul
           className="absolute left-0 right-0 mt-2 overflow-hidden z-30"
-          style={{
-            background: "var(--color-surface)",
-            border: "1px solid var(--color-border)",
-            borderRadius: "6px",
-          }}
+          style={{ background: driverTheme.bgMid, border: "1px solid rgba(193,232,255,0.15)", borderRadius: "6px" }}
         >
           {matches.map((d) => (
             <li key={d.driver_id}>
               <button
                 onClick={() => goToDriver(d)}
-                className="w-full text-left px-4 py-3 text-sm transition-colors duration-200 hover:bg-white/[0.04]"
-                style={{ fontFamily: "var(--font-body)", color: "var(--color-offwhite)" }}
+                className="w-full text-left px-4 py-3 text-sm transition-colors duration-200 hover:bg-white/[0.06]"
+                style={{ fontFamily: "var(--font-body)", color: driverTheme.paleBlue }}
               >
                 {d.full_name}
                 {d.current_team && (
-                  <span className="ml-2 text-xs" style={{ color: "var(--color-grey)" }}>
+                  <span className="ml-2 text-xs" style={{ color: driverTheme.skyLight }}>
                     {d.current_team}
                   </span>
                 )}
@@ -84,6 +81,21 @@ export default function DriverSearch({ drivers }) {
             </li>
           ))}
         </ul>
+      )}
+
+      {showNoResults && (
+        <div
+          className="absolute left-0 right-0 mt-2 px-4 py-3 text-sm z-30"
+          style={{
+            background: driverTheme.bgMid,
+            border: "1px solid rgba(193,232,255,0.15)",
+            borderRadius: "6px",
+            fontFamily: "var(--font-body)",
+            color: driverTheme.skyLight,
+          }}
+        >
+          No driver found matching &quot;{query}&quot;.
+        </div>
       )}
     </div>
   );

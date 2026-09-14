@@ -2,37 +2,34 @@
 
 import { useState } from "react";
 
-// Local driver photos live in /public/images/DriversImages/ as
-// "First-Last.ext" (avif or png), with mixed backgrounds. This tries each
-// extension in turn via onError, and falls back to a typographic
-// placeholder if neither exists - so a missing photo never shows a
-// broken-image icon.
+// Now takes an EXPLICIT filename (with extension) instead of guessing
+// one from the driver's name - the curated registry already knows the
+// exact file. Still falls back gracefully if that exact file 404s.
 
-const EXTENSIONS = ["avif", "png"];
+export default function DriverImage({ filename, alt, className, style }) {
+  const [failed, setFailed] = useState(false);
 
-function slugify(fullName) {
-  return fullName.trim().split(/\s+/).join("-");
-}
-
-export default function DriverImage({ fullName, className }) {
-  const slug = slugify(fullName);
-  const [attempt, setAttempt] = useState(0);
-
-  if (attempt >= EXTENSIONS.length) {
+  if (failed) {
     return (
       <div
-        className={`flex items-end justify-end ${className ?? ""}`}
-        style={{ background: "rgba(255,255,255,0.03)" }}
+        className={className}
+        style={{
+          ...style,
+          display: "flex",
+          alignItems: "flex-end",
+          justifyContent: "flex-end",
+          background: "rgba(255,255,255,0.04)",
+        }}
       >
         <span
-          className="pr-6 pb-6 text-right"
           style={{
             fontFamily: "var(--font-serif)",
-            fontSize: "1.4rem",
-            color: "rgba(242,242,239,0.3)",
+            fontSize: "1.3rem",
+            color: "rgba(193,232,255,0.35)",
+            padding: "1.5rem",
           }}
         >
-          {fullName}
+          {alt}
         </span>
       </div>
     );
@@ -41,11 +38,12 @@ export default function DriverImage({ fullName, className }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={`/images/DriversImages/${slug}.${EXTENSIONS[attempt]}`}
-      alt={fullName}
+      src={`/images/DriversImage/${filename}`}
+      alt={alt}
       loading="lazy"
-      onError={() => setAttempt((a) => a + 1)}
+      onError={() => setFailed(true)}
       className={className}
+      style={style}
     />
   );
 }

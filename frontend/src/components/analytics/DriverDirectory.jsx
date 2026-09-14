@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import DriverCard from "./DriverCard";
+import { driverTheme } from "./theme";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -15,12 +16,6 @@ function chunk(arr, size) {
   return out;
 }
 
-// The stacking effect itself is CSS: every row is `position: sticky` at
-// the SAME top offset, so as the user scrolls, each new row (later in the
-// DOM, higher z-index) naturally comes to rest on top of the one before
-// it - no JS needed for the overlap itself. GSAP only adds a subtle
-// scale-down + dim on the row that's being covered, scrubbed to scroll
-// position, for the "cards receding into the stack" feel.
 export default function DriverDirectory({ drivers, loading, error }) {
   const rowRefs = useRef([]);
   const rows = chunk(drivers, 2);
@@ -39,12 +34,7 @@ export default function DriverDirectory({ drivers, loading, error }) {
           opacity: 0.45,
           ease: "none",
           transformOrigin: "center top",
-          scrollTrigger: {
-            trigger: row,
-            start: "top 96px",
-            end: "bottom 96px",
-            scrub: true,
-          },
+          scrollTrigger: { trigger: row, start: "top 96px", end: "bottom 96px", scrub: true },
         });
       });
     });
@@ -54,10 +44,7 @@ export default function DriverDirectory({ drivers, loading, error }) {
 
   if (loading) {
     return (
-      <p
-        className="px-8 md:px-14 py-24 text-sm"
-        style={{ fontFamily: "var(--font-body)", color: "var(--color-grey)" }}
-      >
+      <p className="px-8 md:px-14 py-24 text-sm" style={{ fontFamily: "var(--font-body)", color: driverTheme.skyLight }}>
         Loading drivers…
       </p>
     );
@@ -65,10 +52,7 @@ export default function DriverDirectory({ drivers, loading, error }) {
 
   if (error) {
     return (
-      <p
-        className="px-8 md:px-14 py-24 text-sm"
-        style={{ fontFamily: "var(--font-body)", color: "var(--color-grey)" }}
-      >
+      <p className="px-8 md:px-14 py-24 text-sm" style={{ fontFamily: "var(--font-body)", color: driverTheme.skyLight }}>
         Could not load drivers: {error}
       </p>
     );
@@ -84,11 +68,7 @@ export default function DriverDirectory({ drivers, loading, error }) {
           style={{ top: "96px", zIndex: i + 1 }}
         >
           {row.map((driver) => (
-            <DriverCard
-              key={driver.driver_id}
-              driver={driver}
-              colorVariant={i % 2 === 0 ? "A" : "B"}
-            />
+            <DriverCard key={driver.driver_id} driver={driver} colorVariant={i % 2 === 0 ? "A" : "B"} />
           ))}
         </div>
       ))}
