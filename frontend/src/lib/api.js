@@ -42,5 +42,26 @@ export function getDriverProfile(driverId) {
   return apiGet(`/drivers/${driverId}/profile`);
 }
 
+
+export function getDriverSeasonStats(driverId, year) {
+  return apiGet(`/drivers/${driverId}/season-stats?year=${year}`);
+}
+
+export function getDriverCareerStats(driverId) {
+  return apiGet(`/drivers/${driverId}/career-stats`);
+}
+
+export function getDriverSeasonTrend(driverId) {
+  return apiGet(`/drivers/${driverId}/season-trend`);
+}
+
+export function getDriverDnaRadar(driverId, year = null) {
+  const query = year ? `?year=${year}` : "";
+  return apiGet(`/drivers/${driverId}/dna-radar${query}`);
+}
+
+export function getDriverCareerMatrix(driverId) {
+  return apiGet(`/drivers/${driverId}/career-matrix`);
+}
 // We will keep adding more functions here as we build each page
 // (season-stats, career-stats, teams, circuits, standings, predictions, etc.)
