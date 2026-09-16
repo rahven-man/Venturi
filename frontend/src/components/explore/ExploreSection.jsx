@@ -6,7 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ExploreBackground from "./ExploreBackground";
 import ExploreIntro from "./ExploreIntro";
 import ExploreCard from "./ExploreCard";
-import ExploreStatement from "./ExploreStatement";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -23,7 +22,7 @@ export default function ExploreSection() {
     const ctx = gsap.context(() => {
       if (prefersReducedMotion) {
         gsap.set(
-          "[data-anim='explore-eyebrow'], [data-anim='explore-heading'], [data-anim='explore-paragraph'], [data-anim='explore-card'], [data-anim='explore-statement']",
+          "[data-anim='explore-eyebrow'], [data-anim='explore-heading'], [data-anim='explore-paragraph'], [data-anim='explore-card']",
           { opacity: 1, y: 0, clipPath: "inset(0 0 0% 0)" }
         );
         gsap.set(sectionRef.current, { opacity: 1, scale: 1, y: 0 });
@@ -81,12 +80,6 @@ export default function ExploreSection() {
             { opacity: 0, y: 40 },
             { opacity: 1, y: 0, duration: 0.8, stagger: 0.15 },
             0.7
-          )
-          .fromTo(
-            "[data-anim='explore-statement']",
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.8 },
-            1.3
           ),
       });
     }, sectionRef);
@@ -103,7 +96,7 @@ export default function ExploreSection() {
       <ExploreBackground />
       <ExploreIntro />
 
-        <div className="flex flex-col md:flex-row md:justify-center gap-8 lg:gap-24 mt-20">
+      <div className="mx-auto mt-20 grid w-full grid-cols-1 gap-8 md:w-[90%] md:grid-cols-2 lg:gap-12">
         <ExploreCard
           index={1}
           label="Intelligence"
@@ -127,8 +120,6 @@ export default function ExploreSection() {
           imageAlt="Formula One data analytics visualization"
         />
       </div>
-
-      <ExploreStatement />
     </section>
   );
 }

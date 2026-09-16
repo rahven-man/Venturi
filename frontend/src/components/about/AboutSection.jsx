@@ -75,7 +75,7 @@ export default function AboutSection() {
       id="about"
       ref={sectionRef}
       className="relative w-full py-32 px-8 md:px-14"
-      style={{ background: "var(--color-graphite)" }}
+      style={{ background: "var(--color-about-surface)" }}
     >
       {/* ---------- 05/05 marker ---------- */}
       <div data-anim="about-eyebrow" className="mb-16 flex items-center gap-3">
@@ -88,7 +88,7 @@ export default function AboutSection() {
         <span className="h-px w-8" style={{ background: "var(--color-border)" }} />
         <span
           className="text-xs tracking-[0.3em]"
-          style={{ fontFamily: "var(--font-technical)", color: "var(--color-grey)" }}
+          style={{ fontFamily: "var(--font-technical)", color: "var(--color-palette-sky)" }}
         >
           ABOUT VENTURI
         </span>
@@ -104,7 +104,7 @@ export default function AboutSection() {
               fontWeight: 600,
               fontSize: "clamp(2.25rem, 4vw, 4rem)",
               lineHeight: 1.15,
-              color: "var(--color-offwhite)",
+              color: "var(--color-palette-ice)",
             }}
           >
             IT&apos;S NOT ABOUT THE MONEY.
@@ -138,20 +138,20 @@ export default function AboutSection() {
               lineHeight: 1,
               letterSpacing: "-0.02em",
               whiteSpace: "nowrap",
-              color: "var(--color-offwhite)",
+              color: "var(--color-palette-ice)",
             }}
           />
 
           <div data-anim="about-descriptor" className="mt-5">
             <p
               className="text-xs tracking-[0.2em]"
-              style={{ fontFamily: "var(--font-technical)", color: "var(--color-grey)" }}
+              style={{ fontFamily: "var(--font-technical)", color: "var(--color-palette-sky)" }}
             >
               INDEPENDENT BUILDER
             </p>
             <p
               className="text-xs tracking-[0.2em] mt-1"
-              style={{ fontFamily: "var(--font-technical)", color: "var(--color-grey)" }}
+              style={{ fontFamily: "var(--font-technical)", color: "var(--color-palette-sky)" }}
             >
               DATA • ENGINEERING • EXPERIMENTATION
             </p>
@@ -171,7 +171,7 @@ export default function AboutSection() {
             fontWeight: 500,
             fontSize: "clamp(1.4rem, 2.6vw, 2.1rem)",
             lineHeight: 1.5,
-            color: "var(--color-offwhite)",
+            color: "var(--color-palette-ice)",
           }}
         >
           Maybe it&apos;s the feeling of understanding something that once
@@ -185,7 +185,7 @@ export default function AboutSection() {
             fontWeight: 500,
             fontSize: "clamp(1.4rem, 2.6vw, 2.1rem)",
             lineHeight: 1.5,
-            color: "var(--color-offwhite)",
+            color: "var(--color-palette-ice)",
           }}
         >
           Maybe it&apos;s the obsession with asking one more question after
@@ -199,7 +199,7 @@ export default function AboutSection() {
             fontWeight: 500,
             fontSize: "clamp(1.4rem, 2.6vw, 2.1rem)",
             lineHeight: 1.5,
-            color: "var(--color-offwhite)",
+            color: "var(--color-palette-ice)",
           }}
         >
           Maybe it&apos;s simply the joy of building something that
@@ -215,7 +215,7 @@ export default function AboutSection() {
             fontWeight: 600,
             fontSize: "clamp(1.8rem, 3.2vw, 2.75rem)",
             lineHeight: 1.3,
-            color: "var(--color-grey)",
+            color: "var(--color-palette-sky)",
           }}
         >
           THAT&apos;S WHAT{" "}
@@ -231,14 +231,14 @@ export default function AboutSection() {
               fontFamily: "var(--font-display)",
               fontWeight: 700,
               fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
-              color: "var(--color-offwhite)",
+              color: "var(--color-palette-ice)",
             }}
           >
             LET&apos;S TALK.
           </h3>
           <p
             className="mt-3 text-sm max-w-sm"
-            style={{ fontFamily: "var(--font-body)", color: "var(--color-grey)" }}
+            style={{ fontFamily: "var(--font-body)", color: "var(--color-palette-sky)" }}
           >
             If you found something interesting, I&apos;d love to hear what
             you think.
@@ -256,7 +256,7 @@ export default function AboutSection() {
                 target={link.label !== "EMAIL" ? "_blank" : undefined}
                 rel={link.label !== "EMAIL" ? "noopener noreferrer" : undefined}
                 className="group relative text-sm tracking-[0.15em] transition-colors duration-300"
-                style={{ fontFamily: "var(--font-technical)", color: "var(--color-offwhite)" }}
+                style={{ fontFamily: "var(--font-technical)", color: "var(--color-palette-ice)" }}
               >
                 {link.label} →
                 <span
@@ -275,14 +275,14 @@ export default function AboutSection() {
               fontWeight: 700,
               fontSize: "clamp(2.5rem, 5vw, 4rem)",
               letterSpacing: "-0.01em",
-              color: "var(--color-slate)",
+              color: "var(--color-palette-ice)",
             }}
           >
             VENTURI
           </p>
           <p
             className="mt-3 text-xs tracking-[0.25em]"
-            style={{ fontFamily: "var(--font-technical)", color: "var(--color-grey)" }}
+            style={{ fontFamily: "var(--font-technical)", color: "var(--color-palette-sky)" }}
           >
             ENGINEERING INTELLIGENCE — FORMULA ONE
           </p>
@@ -309,7 +309,7 @@ export default function AboutSection() {
         </p>
         <p
           className="text-sm leading-relaxed max-w-3xl"
-          style={{ fontFamily: "var(--font-body)", color: "var(--color-grey)" }}
+          style={{ fontFamily: "var(--font-body)", color: "var(--color-palette-sky)" }}
         >
           VENTURI is an independent undergraduate project. The models,
           datasets and analytical outputs are experimental and may contain

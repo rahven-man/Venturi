@@ -95,7 +95,7 @@ export default function AnalyticsSection() {
       id="analytics"
       ref={sectionRef}
       className="relative w-full py-32 px-8 md:px-14"
-      style={{ background: "var(--color-graphite)" }}
+      style={{ background: "var(--color-analytics-surface)" }}
     >
       <div data-anim="analytics-eyebrow" className="mb-6 flex items-center gap-3">
         <span
@@ -107,7 +107,7 @@ export default function AnalyticsSection() {
         <span className="h-px w-8" style={{ background: "var(--color-border)" }} />
         <span
           className="text-xs tracking-[0.3em]"
-          style={{ fontFamily: "var(--font-technical)", color: "var(--color-grey)" }}
+          style={{ fontFamily: "var(--font-technical)", color: "var(--color-palette-sky)" }}
         >
           ANALYTICS
         </span>
@@ -122,7 +122,7 @@ export default function AnalyticsSection() {
           fontSize: "clamp(2.5rem, 5vw, 4.5rem)",
           lineHeight: 1.05,
           letterSpacing: "-0.01em",
-          color: "var(--color-offwhite)",
+          color: "var(--color-palette-ice)",
         }}
       >
         SEE THE RACE
@@ -133,7 +133,7 @@ export default function AnalyticsSection() {
       <p
         data-anim="analytics-paragraph"
         className="mb-16 max-w-xl text-base leading-relaxed"
-        style={{ fontFamily: "var(--font-body)", color: "var(--color-grey)" }}
+        style={{ fontFamily: "var(--font-body)", color: "var(--color-palette-sky)" }}
       >
         Explore the engineering patterns behind Formula One through driver
         performance, team evolution, circuit characteristics and

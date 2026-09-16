@@ -63,5 +63,27 @@ export function getDriverDnaRadar(driverId, year = null) {
 export function getDriverCareerMatrix(driverId) {
   return apiGet(`/drivers/${driverId}/career-matrix`);
 }
+
+// ---- Teams ----
+
+export function getTeams(activeOnly = true) {
+  return apiGet(`/teams?active_only=${activeOnly}`);
+}
+
+export function getTeamProfile(teamId) {
+  return apiGet(`/teams/${teamId}/profile`);
+}
+
+export function getTeamSeasonStats(teamId, year) {
+  return apiGet(`/teams/${teamId}/season-stats?year=${year}`);
+}
+
+export function getTeamCareerStats(teamId) {
+  return apiGet(`/teams/${teamId}/career-stats`);
+}
+
+export function getTeamSeasonTrend(teamId) {
+  return apiGet(`/teams/${teamId}/season-trend`);
+}
 // We will keep adding more functions here as we build each page
 // (season-stats, career-stats, teams, circuits, standings, predictions, etc.)

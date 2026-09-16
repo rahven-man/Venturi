@@ -25,14 +25,14 @@ export default function ExploreCard({
         onMouseLeave={handleMouseLeave}
         className="flex flex-col transition-transform duration-200 ease-out will-change-transform"
         style={{
-          width: "clamp(500px, 14vw, 520px)",
+          width: "100%",
           background: "var(--color-card-surface)",
           border: "1px solid var(--color-card-border)",
           borderRadius: "6px",
           transformStyle: "preserve-3d",
         }}
       >
-        <div className="flex items-center justify-between px-7 pt-8 pb-5">
+        <div className="flex items-center justify-between px-7 pt-6 pb-4">
           <span
             className="text-xs tracking-[0.3em]"
             style={{ fontFamily: "var(--font-technical)", color: "var(--color-card-label)" }}
@@ -48,7 +48,7 @@ export default function ExploreCard({
         <div className="mx-7" style={{ perspective: "800px" }}>
           <div
             ref={imageRef}
-            className="relative aspect-[4/3] overflow-hidden rounded-sm transition-transform duration-200 ease-out will-change-transform"
+            className="relative aspect-[16/8] overflow-hidden rounded-sm transition-transform duration-200 ease-out will-change-transform"
             style={{ border: "1px solid var(--color-card-border)", transformStyle: "preserve-3d" }}
           >
             <Image
@@ -67,7 +67,7 @@ export default function ExploreCard({
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 px-7 py-7 flex-1">
+        <div className="flex flex-col gap-3 px-7 py-6 flex-1">
           <h3
             style={{
               fontFamily: "var(--font-display)",
@@ -80,7 +80,7 @@ export default function ExploreCard({
           </h3>
           <span
             className="text-xs tracking-[0.2em]"
-            style={{ fontFamily: "var(--font-technical)", color: "var(--color-steel)" }}
+            style={{ fontFamily: "var(--font-technical)", color: "var(--color-card-heading)" }}
           >
             {descriptor}
           </span>
@@ -106,7 +106,7 @@ export default function ExploreCard({
 
         <Link
           href={href}
-          className="group/cta relative flex items-center justify-between px-7 py-5 text-sm tracking-[0.1em] overflow-hidden"
+          className="group/cta relative flex items-center justify-between px-7 py-4 text-sm tracking-[0.1em] overflow-hidden"
           style={{
             fontFamily: "var(--font-body)",
             fontWeight: 500,

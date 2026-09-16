@@ -3,7 +3,7 @@ import { driverTheme } from "./theme";
 
 const ITEMS = [
   { label: "DRIVERS", href: "/analytics/drivers", key: "drivers" },
-  { label: "TEAMS", href: "/#analytics", key: "teams" },
+  { label: "TEAMS", href: "/analytics/teams", key: "teams" },
   { label: "CIRCUITS", href: "/#analytics", key: "circuits" },
   { label: "CHAMPIONSHIP", href: "/#analytics", key: "championship" },
 ];

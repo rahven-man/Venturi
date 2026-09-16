@@ -34,15 +34,29 @@ def get_team_profile(team_id: int):
     con = get_connection()
 
     query = f"""
+        WITH latest_team_season AS (
+            SELECT MAX(td.season_id) AS season_id
+            FROM teamdriver td
+            WHERE td.team_id = {team_id}
+        ),
+        current_drivers AS (
+            SELECT STRING_AGG(d.forename || ' ' || d.surname, ' · ' ORDER BY d.surname) AS driver_names
+            FROM teamdriver td
+            JOIN driver d ON td.driver_id = d.id
+            JOIN latest_team_season lts ON td.season_id = lts.season_id
+            WHERE td.team_id = {team_id}
+        )
         SELECT
             t.id AS team_id,
             t.name,
             t.nationality,
             t.country_code,
+            cd.driver_names AS current_drivers,
             (SELECT MIN(s.year) FROM teamdriver td
                 JOIN season s ON td.season_id = s.id
                 WHERE td.team_id = t.id) AS first_entry_year
         FROM team t
+        CROSS JOIN current_drivers cd
         WHERE t.id = {team_id}
     """
     result = con.execute(query).df()

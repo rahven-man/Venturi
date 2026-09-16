@@ -1,6 +1,4 @@
-// Navy engineering-lab backdrop with restrained red and steel accent
-// glows. No grid - a plain gradient plus two soft radial washes gives
-// enough atmosphere without looking like graph paper.
+// Layered blue backdrop based on the VENTURI palette.
 
 export default function ExploreBackground() {
   return (
@@ -9,21 +7,21 @@ export default function ExploreBackground() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(160deg, var(--color-navy) 0%, var(--color-navy-mid) 55%, var(--color-navy) 100%)",
+            "var(--color-explore-surface)",
         }}
       />
 
       <div
         className="absolute -top-1/4 -left-1/4 w-[65%] h-[65%] rounded-full"
         style={{
-          background: "radial-gradient(circle, rgba(225,6,0,0.08) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(125,160,202,0.18) 0%, transparent 70%)",
         }}
       />
 
       <div
         className="absolute -bottom-1/4 -right-1/4 w-[70%] h-[70%] rounded-full"
         style={{
-          background: "radial-gradient(circle, rgba(213,217,222,0.06) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(193,232,255,0.12) 0%, transparent 70%)",
         }}
       />
     </div>

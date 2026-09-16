@@ -83,7 +83,7 @@ export default function IntelligenceSection() {
       id="intelligence"
       ref={sectionRef}
       className="relative w-full py-32 px-8 md:px-14"
-      style={{ background: "var(--color-graphite)" }}
+      style={{ background: "var(--color-intelligence-surface)" }}
     >
       <div data-anim="intel-eyebrow" className="mb-6 flex items-center gap-3">
         <span
@@ -110,7 +110,7 @@ export default function IntelligenceSection() {
             fontSize: "clamp(2.5rem, 5vw, 4.5rem)",
             lineHeight: 1.05,
             letterSpacing: "-0.01em",
-            color: "var(--color-offwhite)",
+            color: "var(--color-palette-ice)",
           }}
         >
           PREDICT THE RACE.
@@ -153,7 +153,7 @@ export default function IntelligenceSection() {
       <div data-anim="intel-paragraph" className="mb-16 max-w-xl">
         <p
           className="text-base leading-relaxed"
-          style={{ fontFamily: "var(--font-body)", color: "var(--color-grey)" }}
+          style={{ fontFamily: "var(--font-body)", color: "var(--color-palette-sky)" }}
         >
           VENTURI turns race data into predictive engineering models for lap
           time, pit stops and tyre performance.

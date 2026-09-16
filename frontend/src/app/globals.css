@@ -11,11 +11,20 @@
   --color-steel: #8ea0b5;
   --color-navy: #0a1120;
   --color-navy-mid: #101a30;
-  --color-card-surface: linear-gradient(160deg, #F4F5F3 0%, #E2E5E9 100%);
-  --color-card-border: rgba(11, 12, 14, 0.12);
-  --color-card-heading: #14161A;
-  --color-card-text: #4B4F55;
-  --color-card-label: #6B7280;
+  --color-palette-deep: #021024;
+  --color-palette-navy: #052659;
+  --color-palette-blue: #5483b3;
+  --color-palette-sky: #7da0ca;
+  --color-palette-ice: #c1e8ff;
+  --color-explore-surface: linear-gradient(145deg, #052659 0%, #021024 72%);
+  --color-intelligence-surface: #021024;
+  --color-analytics-surface: linear-gradient(145deg, #021024 0%, #052659 100%);
+  --color-about-surface: #052659;
+  --color-card-surface: linear-gradient(145deg, #7da0ca 0%, #5483b3 100%);
+  --color-card-border: rgba(193, 232, 255, 0.34);
+  --color-card-heading: #021024;
+  --color-card-text: #052659;
+  --color-card-label: #021024;
   --font-ranade: "Ranade", var(--font-display), sans-serif;
 }
 
@@ -35,6 +44,11 @@
   --color-card-heading: var(--color-card-heading);
   --color-card-text: var(--color-card-text);
   --color-card-label: var(--color-card-label);
+  --color-palette-deep: var(--color-palette-deep);
+  --color-palette-navy: var(--color-palette-navy);
+  --color-palette-blue: var(--color-palette-blue);
+  --color-palette-sky: var(--color-palette-sky);
+  --color-palette-ice: var(--color-palette-ice);
   --font-display: var(--font-display);
   --font-technical: var(--font-technical);
   --font-body: var(--font-body);
@@ -70,4 +84,60 @@ body {
   25% { opacity: 1; }
   75% { opacity: 1; }
   100% { transform: translateY(22px); opacity: 0; }
+}
+
+@keyframes heatmap-scan {
+  0% { transform: translateX(-100%); opacity: 0; }
+  20%, 80% { opacity: 0.8; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+.heatmap-scanline {
+  animation: heatmap-scan 4s ease-in-out infinite;
+}
+
+.dna-radar-shape {
+  transform-origin: 250px 250px;
+  animation: dna-pulse 3.5s ease-in-out infinite;
+}
+
+.dna-radar-orbit {
+  transform-origin: 250px 250px;
+  animation: dna-orbit 14s linear infinite;
+}
+
+.dna-radar-scan {
+  transform-origin: 250px 250px;
+  animation: dna-scan 3.8s ease-in-out infinite;
+}
+
+.dna-detail-fill {
+  position: absolute;
+  inset: 0;
+  transform: translateX(-102%);
+  background: linear-gradient(90deg, transparent, rgba(225, 6, 0, 0.9), rgba(225, 6, 0, 0.42));
+}
+
+.dna-detail-active .dna-detail-fill {
+  animation: dna-detail-load 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes dna-pulse {
+  0%, 100% { opacity: 0.78; }
+  50% { opacity: 1; }
+}
+
+@keyframes dna-orbit {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes dna-scan {
+  0%, 100% { transform: translateY(-110px); opacity: 0; }
+  25%, 75% { opacity: 0.85; }
+  50% { transform: translateY(110px); }
+}
+
+@keyframes dna-detail-load {
+  from { transform: translateX(-102%); }
+  to { transform: translateX(0); }
 }

@@ -27,7 +27,7 @@ export default function DriverDetailPage({ params }) {
         if (i === refs.length - 1) return;
           gsap.to(card, {
           scale: 0.97,
-          opacity: 0.82,
+          opacity: 1,
           ease: "none",
           transformOrigin: "center top",
           scrollTrigger: { trigger: card, start: "top 96px", end: "bottom -40px", scrub: true },
