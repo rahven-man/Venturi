@@ -13,7 +13,8 @@ export default function TeamDirectory({ teams, loading, error }) {
   const rowRefs = useRef([]);
   const curatedTeams = CURATED_TEAMS.map((curated) => ({
     curated,
-    team: teams.find((team) => team.name.toLowerCase().includes(curated.searchKey.toLowerCase())),
+    team: teams.find((team) => team.name.toLowerCase() === curated.searchKey.toLowerCase())
+      ?? teams.find((team) => team.name.toLowerCase().includes(curated.searchKey.toLowerCase())),
   })).filter((item) => item.team);
 
   useLayoutEffect(() => {

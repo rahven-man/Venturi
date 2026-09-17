@@ -85,5 +85,15 @@ export function getTeamCareerStats(teamId) {
 export function getTeamSeasonTrend(teamId) {
   return apiGet(`/teams/${teamId}/season-trend`);
 }
+
+// ---- Lap Time Model ----
+
+export function getLapTimeOptions() {
+  return apiGet("/predictions/lap-time/options");
+}
+
+export function predictLapTime(payload) {
+  return apiPost("/predictions/lap-time", payload);
+}
 // We will keep adding more functions here as we build each page
 // (season-stats, career-stats, teams, circuits, standings, predictions, etc.)

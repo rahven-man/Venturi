@@ -60,6 +60,7 @@ body {
   font-family: var(--font-body);
 }
 
+
 @keyframes glow-breathe {
   0%, 100% { opacity: 0.6; }
   50% { opacity: 1; }
@@ -140,4 +141,12 @@ body {
 @keyframes dna-detail-load {
   from { transform: translateX(-102%); }
   to { transform: translateX(0); }
+}
+
+.lap-track-flow {
+  animation: lap-track-flow 3.5s linear infinite;
+}
+
+@keyframes lap-track-flow {
+  to { stroke-dashoffset: -112; }
 }
