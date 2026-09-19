@@ -27,17 +27,7 @@ export default function HeroAtmosphere() {
         }}
       />
 
-      {/* red accent glow near the car's rear light */}
-      <div
-        className="absolute w-[10%] h-[10%] rounded-full"
-        style={{
-          top: "58%",
-          left: "48%",
-          background:
-            "radial-gradient(circle, rgba(225,6,0,0.35) 0%, transparent 70%)",
-          animation: "glow-breathe 6s ease-in-out infinite",
-        }}
-      />
+
 
       {/* sparse drifting particles */}
       {PARTICLES.map((p, i) => (

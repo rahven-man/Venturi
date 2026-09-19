@@ -24,7 +24,7 @@ export default function HeroWordmark() {
                 fontSize: "clamp(2.4rem, 4.2vw, 5rem)",
                 fontWeight: 800,
                 fontStyle: "italic",
-                letterSpacing: "-0.06em",
+                letterSpacing: "-0.04em",
                 lineHeight: 0.9,
                 color: "#071522",
                 transform: "skewX(-5deg)",
@@ -39,7 +39,7 @@ export default function HeroWordmark() {
         {/* =========================================================
             RIGHT — VENTURI
             ========================================================= */}
-        <div className="relative flex justify-start pl-5 md:pl-7 min-w-0">
+        <div className="relative flex justify-start pl-5 md:pl-5 min-w-0">
           <div className="relative max-w-full min-w-0">
 
             <span
@@ -49,7 +49,7 @@ export default function HeroWordmark() {
                 fontSize: "clamp(3.2rem, 6.2vw, 8rem)",
                 fontWeight: 800,
                 fontStyle: "italic",
-                letterSpacing: "-0.085em",
+                letterSpacing: "-0.055em",
                 lineHeight: 0.82,
                 color: "#EAF4FA",
                 transform: "skewX(-5deg)",

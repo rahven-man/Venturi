@@ -97,3 +97,28 @@ export function predictLapTime(payload) {
 }
 // We will keep adding more functions here as we build each page
 // (season-stats, career-stats, teams, circuits, standings, predictions, etc.)
+
+// ---- Pit Stop Model ----
+export function getPitStopOptions() { return apiGet("/predictions/pit-stop/options"); }
+export function predictPitStop(payload) { return apiPost("/predictions/pit-stop", payload); }
+
+// ---- Tyre Degradation Model ----
+export function getTyreDegradationOptions() { return apiGet("/predictions/tyre-degradation/options"); }
+export function predictTyreDegradation(payload) { return apiPost("/predictions/tyre-degradation", payload); }
+
+// ---- Circuits ----
+export function getCircuits(activeOnly = true, search = null) {
+  const params = new URLSearchParams();
+  if (search) params.set("search", search);
+  else params.set("active_only", activeOnly);
+  return apiGet(`/circuits?${params.toString()}`);
+}
+export function getCircuitProfile(circuitId) { return apiGet(`/circuits/${circuitId}/profile`); }
+export function getCircuitLapRecord(circuitId) { return apiGet(`/circuits/${circuitId}/lap-record`); }
+export function getCircuitWinners(circuitId, limit = 15) { return apiGet(`/circuits/${circuitId}/winners?limit=${limit}`); }
+export function getCircuitAllTimeStats(circuitId) { return apiGet(`/circuits/${circuitId}/all-time-stats`); }
+
+// ---- Championship Standings ----
+export function getStandingsSeasons() { return apiGet("/standings/seasons"); }
+export function getDriverStandings(year) { return apiGet(`/standings/drivers?year=${year}`); }
+export function getConstructorStandings(year) { return apiGet(`/standings/constructors?year=${year}`); }
