@@ -3,11 +3,11 @@
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import HeroScene from "./HeroScene";
-import HeroNavigation from "./HeroNavigation";
 import HeroWordmark from "./HeroWordmark";
 import HeroCTA from "./HeroCTA";
-import HeroScrollCue from "./HeroScrollCue";
 import HeroSpeedTrails from "./HeroSpeedTrails";
+import HeroSideDrawer from "./HeroSideDrawer";
+import HeroBrand from "./HeroBrand";
 
 export default function HeroSection() {
   const containerRef = useRef(null);
@@ -16,26 +16,20 @@ export default function HeroSection() {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
 
     const ctx = gsap.context(() => {
       if (prefersReducedMotion) {
         gsap.set("[data-anim='veil']", { opacity: 0 });
         gsap.set("[data-anim='scene-image']", { scale: 1 });
         gsap.set("[data-anim='wordmark']", { opacity: 1, scale: 1, y: 0 });
-        gsap.set(
-          "[data-anim='nav-item'], [data-anim='brand'], [data-anim='cta'], [data-anim='scroll-cue']",
-          { opacity: 1, y: 0 }
-        );
+        gsap.set("[data-anim='brand'], [data-anim='cta']", { opacity: 1, y: 0 });
         return;
       }
 
       gsap.set("[data-anim='scene-image']", { scale: 1.05 });
       gsap.set("[data-anim='wordmark']", { opacity: 0, scale: 0.985, y: 8 });
       gsap.set("[data-anim='brand']", { opacity: 0, y: -10 });
-      gsap.set("[data-anim='nav'] [data-anim='nav-item']", { opacity: 0, y: -10 });
       gsap.set("[data-anim='cta']", { opacity: 0, y: 10 });
-      gsap.set("[data-anim='scroll-cue']", { opacity: 0, y: 10 });
 
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
@@ -56,13 +50,7 @@ export default function HeroSection() {
           1.55
         )
         .to("[data-anim='brand']", { opacity: 1, y: 0, duration: 0.7 }, 0.9)
-        .to(
-          "[data-anim='nav'] [data-anim='nav-item']",
-          { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 },
-          1.0
-        )
-        .to("[data-anim='cta']", { opacity: 1, y: 0, duration: 0.6 }, 1.7)
-        .to("[data-anim='scroll-cue']", { opacity: 1, y: 0, duration: 0.6 }, 1.8);
+        .to("[data-anim='cta']", { opacity: 1, y: 0, duration: 0.6 }, 1.7);
 
       gsap.to("[data-anim='scene-image']", {
         scale: 1.03,
@@ -72,8 +60,6 @@ export default function HeroSection() {
         yoyo: true,
         delay: 3.5,
       });
-
-      // Removed cursor/mousemove parallax effect for cleaner UX
     }, containerRef);
 
     return () => {
@@ -89,13 +75,13 @@ export default function HeroSection() {
     >
       <div className="hidden md:block absolute inset-0">
         <HeroScene />
-        <HeroNavigation />
+        <HeroBrand />
         <div className="absolute inset-x-0 top-[16%] z-10 flex justify-center">
           <HeroWordmark />
         </div>
         <HeroCTA />
-        <HeroScrollCue />
         <HeroSpeedTrails />
+        <HeroSideDrawer />
       </div>
 
       <div className="md:hidden absolute inset-0 flex flex-col items-center justify-center gap-4 px-8 text-center">

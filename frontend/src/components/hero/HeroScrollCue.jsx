@@ -1,8 +1,6 @@
-// Bottom-right scroll cue. A ring with a dot drifting downward reads
-// universally as "scroll" without needing an icon library. The "01 / 05"
-// label is a minimal progress marker for the future 5-section homepage.
+export default function HeroScrollCue({ activeIndex = 0, total = 5 }) {
+  const label = `${String(activeIndex + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
 
-export default function HeroScrollCue() {
   return (
     <div
       data-anim="scroll-cue"
@@ -12,7 +10,7 @@ export default function HeroScrollCue() {
         className="text-[10px] tracking-[0.3em]"
         style={{ fontFamily: "var(--font-technical)", color: "var(--color-grey)" }}
       >
-        01 / 05
+        {label}
       </span>
 
       <div className="flex items-center gap-4">
@@ -29,10 +27,7 @@ export default function HeroScrollCue() {
         >
           <span
             className="w-1.5 h-1.5 rounded-full"
-            style={{
-              background: "var(--color-red)",
-              animation: "scroll-dot 2.2s ease-in-out infinite",
-            }}
+            style={{ background: "var(--color-red)", animation: "scroll-dot 2.2s ease-in-out infinite" }}
           />
         </div>
       </div>
