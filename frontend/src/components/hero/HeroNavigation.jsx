@@ -9,9 +9,9 @@ export default function HeroNavigation() {
   return (
     <nav
       data-anim="nav"
-      className="absolute top-0 inset-x-0 z-20 flex items-center justify-end px-8 md:px-14 py-3"
+      className="absolute top-0 inset-x-0 z-20 flex items-center justify-end px-8 md:px-14 py-3 pointer-events-none"
     >
-      <ul className="flex items-center gap-10 md:gap-16 md:px-8">
+      <ul className="flex items-center gap-10 md:gap-16 md:px-8 pointer-events-auto">
         {NAV_ITEMS.map((item, i) => (
           <li key={item} data-anim="nav-item" className="relative">
             <a

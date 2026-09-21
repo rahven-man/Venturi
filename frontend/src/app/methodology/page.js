@@ -1,4 +1,4 @@
-const GITHUB_URL = "https://github.com/YOUR-USERNAME/venturi";
+const GITHUB_URL = "https://github.com/rahven-man/Venturi";
 
 function MetricRow({ label, value }) {
   return (

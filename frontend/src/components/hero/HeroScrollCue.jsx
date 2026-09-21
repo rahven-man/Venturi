@@ -4,7 +4,7 @@ export default function HeroScrollCue({ activeIndex = 0, total = 5 }) {
   return (
     <div
       data-anim="scroll-cue"
-      className="absolute bottom-10 right-8 md:right-14 z-20 flex flex-col items-end gap-4"
+      className="absolute bottom-10 right-8 md:right-14 z-20 flex flex-col items-end gap-4 pointer-events-auto"
     >
       <span
         className="text-[10px] tracking-[0.3em]"
