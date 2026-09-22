@@ -31,24 +31,42 @@ function pointsFor(values, radius = RADIUS) {
     .join(" ");
 }
 
-export default function DnaRadarCard({ radar, variant }) {
+export default function DnaRadarCard({ radar }) {
   const [focused, setFocused] = useState(null);
-  const gradient = variant === "A"
-    ? `linear-gradient(120deg, ${driverTheme.bgMid} 0%, ${driverTheme.bgDeep} 100%)`
-    : `linear-gradient(120deg, ${driverTheme.steel} 0%, ${driverTheme.bgMid} 100%)`;
   const values = radar?.radar
     ? TRAITS.map((trait) => Math.round(radar.radar[trait.key] * 100))
     : null;
 
   return (
-    <div className="relative overflow-hidden p-8" style={{ background: gradient, borderRadius: "18px", border: `1px solid ${RADAR_RED}66`, minHeight: "34rem" }}>
-      <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(circle at 66% 48%, rgba(225,6,0,0.18), transparent 28%), linear-gradient(135deg, rgba(1,8,23,0.1), rgba(1,8,23,0.62))" }} />
+    <div
+      className="relative overflow-hidden p-8 rounded-[20px]"
+      style={{
+        backgroundColor: "#052659",
+        borderRadius: "20px",
+        border: "1px solid rgba(193,232,255,0.16)",
+        boxShadow: "0 20px 45px -12px rgba(0, 0, 0, 0.65)",
+        minHeight: "34rem",
+      }}
+    >
+      {/* Telemetry micro-grid texture overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-20 z-0"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(193,232,255,0.12) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(193,232,255,0.12) 1px, transparent 1px)
+          `,
+          backgroundSize: "28px 28px",
+        }}
+      />
+      <div className="pointer-events-none absolute inset-0 z-0" style={{ background: "radial-gradient(circle at 66% 48%, rgba(225,6,0,0.14), transparent 32%)" }} />
+
       <div className="relative z-10 flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="mb-2 text-[10px] tracking-[0.3em]" style={{ fontFamily: "var(--font-technical)", color: RADAR_ORANGE }}>PERFORMANCE VECTOR / 06 AXES</p>
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "1.8rem", color: "#ffffff" }}>DRIVER DNA</h2>
         </div>
-        <div className="rounded-full px-3 py-1 text-[10px] tracking-[0.2em]" style={{ fontFamily: "var(--font-technical)", color: RADAR_ORANGE, border: `1px solid ${RADAR_RED}99`, background: "rgba(1,8,23,0.5)" }}>
+        <div className="rounded-full px-3 py-1 text-[10px] tracking-[0.2em]" style={{ fontFamily: "var(--font-technical)", color: RADAR_ORANGE, border: `1px solid ${RADAR_RED}99`, background: "#021024" }}>
           {radar?.year?.toString().toUpperCase() ?? "CAREER"}
         </div>
       </div>
@@ -57,7 +75,7 @@ export default function DnaRadarCard({ radar, variant }) {
         <p className="relative z-10 mt-10" style={{ fontFamily: "var(--font-body)", color: driverTheme.skyLight }}>No career race data available for this driver.</p>
       ) : (
         <div className="relative z-10 mt-5 grid items-center gap-8 lg:grid-cols-[minmax(0,1.25fr)_minmax(15rem,1fr)]">
-          <div className="relative mx-auto w-full max-w-[36rem] rounded-2xl p-2" style={{ background: `linear-gradient(145deg, ${RADAR_INK}, rgba(5,38,89,0.68))`, border: `1px solid ${RADAR_BLUE}66`, boxShadow: `inset 0 0 40px ${RADAR_INK}, 0 0 30px ${RADAR_RED}22` }}>
+          <div className="relative mx-auto w-full max-w-[36rem] rounded-2xl p-2" style={{ background: "#021024", border: `1px solid ${RADAR_BLUE}66`, boxShadow: `inset 0 0 36px ${RADAR_INK}, 0 0 25px ${RADAR_RED}18` }}>
             <svg viewBox="0 0 500 460" className="w-full" role="img" aria-label="Interactive driver DNA radar chart">
               <defs>
                 <linearGradient id="dna-fill" x1="0" y1="0" x2="1" y2="1">

@@ -2,89 +2,191 @@
 
 import DriverImage from "@/components/analytics/DriverImage";
 import { resolveDriverImage } from "@/components/analytics/driverPhotos";
-import { driverTheme } from "@/components/analytics/theme";
+import { getTeamColor } from "@/lib/teamColors";
 
-export default function DriverHeroCard({ profile, variant }) {
+export default function DriverHeroCard({ profile }) {
   const nameParts = profile.full_name.trim().split(/\s+/);
   const firstName = nameParts.shift() ?? profile.full_name;
   const lastName = nameParts.join(" ");
 
-  const gradient =
-    variant === "A"
-      ? `linear-gradient(120deg, ${driverTheme.bgMid} 0%, ${driverTheme.bgDeep} 100%)`
-      : `linear-gradient(120deg, ${driverTheme.steel} 0%, ${driverTheme.bgMid} 100%)`;
+  const teamColor = getTeamColor(profile.current_team);
+  const carNumber = profile.permanent_car_number || "";
+  const imageFilename = resolveDriverImage(profile.full_name);
+  const isAvif = imageFilename.toLowerCase().endsWith(".avif");
 
   return (
     <div
-      className="relative flex overflow-hidden"
+      className="relative overflow-hidden w-full min-h-[22rem] md:min-h-[25rem] rounded-[20px] select-none"
       style={{
-        background: gradient,
-        borderRadius: "18px",
-        minHeight: "35rem",
-        border: "1px solid rgba(193,232,255,0.1)",
+        backgroundColor: teamColor,
+        boxShadow: "0 18px 45px -10px rgba(0, 0, 0, 0.5)",
+        border: "1px solid rgba(255, 255, 255, 0.2)",
       }}
     >
-      <div className="relative z-10 flex w-[60%] flex-col items-center justify-center px-8 text-center md:px-14">
-        <div className="w-full max-w-[35rem]">
-          <div className="mb-7 h-px w-full" style={{ background: `linear-gradient(90deg, transparent, ${driverTheme.paleBlue}, transparent)` }} />
-          <h1 className="flex flex-col items-center leading-none">
-            <span
-              style={{
-                fontFamily: "var(--font-script)",
-                fontSize: "clamp(3.8rem, 7vw, 6.8rem)",
-                lineHeight: 0.7,
-                color: driverTheme.paleBlue,
-                transform: "translateY(0.15em)",
-              }}
-            >
-              {firstName}
+      {/* 1. Stepped pixel / halftone contour background texture (matching official F1 graphics) */}
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none z-0"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+      >
+        <defs>
+          <pattern
+            id="f1-halftone-dots"
+            x="0"
+            y="0"
+            width="12"
+            height="12"
+            patternUnits="userSpaceOnUse"
+          >
+            <circle cx="2" cy="2" r="1.2" fill="rgba(255, 255, 255, 0.22)" />
+          </pattern>
+        </defs>
+
+        {/* Stepped pixel grid aura centered behind driver */}
+        <rect
+          x="42%"
+          y="6%"
+          width="54%"
+          height="88%"
+          fill="url(#f1-halftone-dots)"
+          opacity="0.65"
+        />
+
+        {/* Stepped concentric contour borders */}
+        <g stroke="rgba(255, 255, 255, 0.16)" strokeWidth="1.5" fill="none">
+          <path d="M 48% 12% L 94% 12% L 94% 88% L 48% 88% Z" />
+          <path d="M 52% 18% L 90% 18% L 90% 82% L 52% 82% Z" />
+          <path d="M 56% 24% L 86% 24% L 86% 76% L 56% 76% Z" />
+          <path d="M 60% 30% L 82% 30% L 82% 70% L 60% 70% Z" />
+        </g>
+      </svg>
+
+      {/* 2. Giant driver number watermark outlined behind the driver */}
+      {carNumber && (
+        <div
+          className="absolute right-[8%] md:right-[15%] top-1/2 -translate-y-1/2 pointer-events-none select-none z-0"
+          style={{
+            fontFamily: "var(--font-technical, sans-serif)",
+            fontWeight: 900,
+            fontSize: "clamp(12rem, 24vw, 21rem)",
+            lineHeight: 0.8,
+            color: "transparent",
+            WebkitTextStroke: "3px rgba(255, 255, 255, 0.25)",
+            letterSpacing: "-0.04em",
+          }}
+        >
+          {carNumber}
+        </div>
+      )}
+
+      {/* 3. Official F1 angled track stripe accents on the left */}
+      <div className="absolute left-[6%] md:left-[8%] top-0 h-9 w-6 flex gap-1 pointer-events-none z-10">
+        <div className="w-1.5 h-full bg-white skew-y-[35deg] shadow-sm" />
+        <div className="w-1 h-3/4 bg-white/50 skew-y-[35deg]" />
+      </div>
+      <div className="absolute left-[6%] md:left-[8%] bottom-0 h-9 w-6 flex gap-1 pointer-events-none z-10">
+        <div className="w-1.5 h-full bg-white -skew-y-[35deg] shadow-sm" />
+        <div className="w-1 h-3/4 bg-white/50 -skew-y-[35deg]" />
+      </div>
+
+      {/* 4. Driver Information Block (Left-aligned, crisp white, with subtle shadow) */}
+      <div
+        className="relative z-20 flex h-full min-h-[22rem] md:min-h-[25rem] flex-col justify-center px-8 md:px-16 w-[58%] md:w-[55%]"
+        style={{ filter: "drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35))" }}
+      >
+        <div className="flex flex-col items-start leading-none">
+          <span
+            style={{
+              fontFamily: "var(--font-script, cursive)",
+              fontSize: "clamp(2.6rem, 5.2vw, 4.6rem)",
+              lineHeight: 0.85,
+              color: "#ffffff",
+              transform: "translateY(0.08em)",
+              fontWeight: 400,
+            }}
+          >
+            {firstName}
+          </span>
+          <span
+            style={{
+              fontFamily: "var(--font-technical, sans-serif)",
+              fontWeight: 800,
+              fontSize: "clamp(2.4rem, 5vw, 4.5rem)",
+              letterSpacing: "-0.01em",
+              color: "#ffffff",
+              textTransform: "uppercase",
+              lineHeight: 0.95,
+              marginTop: "0.1em",
+            }}
+          >
+            {lastName || firstName}
+          </span>
+        </div>
+
+        {/* Details row: Nationality | Team | Number */}
+        <div
+          className="mt-5 flex flex-wrap items-center gap-3 text-xs md:text-sm font-semibold tracking-wide text-white"
+          style={{ fontFamily: "var(--font-technical, sans-serif)" }}
+        >
+          {profile.nationality && (
+            <span className="flex items-center gap-2">
+              <span className="inline-block w-2 h-2 rounded-full bg-white" />
+              {profile.nationality}
             </span>
-            <span
-              style={{
-                fontFamily: "var(--font-technical)",
-                fontWeight: 600,
-                fontSize: "clamp(3.2rem, 6vw, 6rem)",
-                letterSpacing: "0.015em",
-                color: "#ffffff",
-                textTransform: "uppercase",
-              }}
-            >
-              {lastName || firstName}
+          )}
+          {profile.current_team && (
+            <span className="flex items-center gap-3">
+              <span className="opacity-60">|</span>
+              {profile.current_team}
             </span>
-          </h1>
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-lg" style={{ fontFamily: "var(--font-technical)", fontWeight: 600, color: driverTheme.paleBlue }}>
-            {[
-              profile.nationality,
-              profile.current_team,
-              profile.permanent_car_number && `#${profile.permanent_car_number}`,
-            ].filter(Boolean).map((item, index) => (
-              <span key={`${item}-${index}`} className="flex items-center gap-5">
-                {index > 0 && <i className="h-5 w-px" style={{ background: driverTheme.skyLight }} />}
-                {item}
-              </span>
-            ))}
-          </div>
-          <div className="mt-7 h-px w-full" style={{ background: `linear-gradient(90deg, transparent, ${driverTheme.paleBlue}, transparent)` }} />
+          )}
+          {carNumber && (
+            <span className="flex items-center gap-3">
+              <span className="opacity-60">|</span>
+              #{carNumber}
+            </span>
+          )}
         </div>
       </div>
 
-      <div className="absolute top-0 right-0 h-full" style={{ width: "40%" }}>
-          <DriverImage
-          filename={resolveDriverImage(profile.full_name)}
-          alt={profile.full_name}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "top center",
-            maskImage: "radial-gradient(ellipse 78% 92% at 50% 42%, black 58%, transparent 100%)",
-            WebkitMaskImage: "radial-gradient(ellipse 78% 92% at 50% 42%, black 58%, transparent 100%)",
-          }}
-        />
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: `linear-gradient(90deg, ${gradient.includes(driverTheme.bgMid) ? driverTheme.bgMid : driverTheme.steel} 0%, transparent 22%)` }}
-        />
+      {/* 5. Driver Photo: Cropped at waist-up for .avif, or fully visible for .png / GeneralDriver */}
+      <div className="absolute right-[4%] md:right-[10%] bottom-0 top-0 h-full w-[44%] md:w-[38%] max-w-[420px] pointer-events-none z-10 overflow-hidden flex items-end justify-center">
+        {isAvif ? (
+          <div className="relative h-full w-full">
+            <DriverImage
+              filename={imageFilename}
+              alt={profile.full_name}
+              style={{
+                position: "absolute",
+                top: "0",
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: "auto",
+                minWidth: "100%",
+                height: "192%",
+                objectFit: "cover",
+                objectPosition: "top center",
+                filter: "drop-shadow(0 12px 24px rgba(0, 0, 0, 0.4))",
+              }}
+            />
+          </div>
+        ) : (
+          <div className="relative h-full w-full flex items-end justify-center pb-3">
+            <DriverImage
+              filename={imageFilename}
+              alt={profile.full_name}
+              style={{
+                width: "auto",
+                maxWidth: "100%",
+                height: "88%",
+                maxHeight: "88%",
+                objectFit: "contain",
+                objectPosition: "bottom center",
+                filter: "drop-shadow(0 14px 28px rgba(0, 0, 0, 0.45))",
+              }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

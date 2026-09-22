@@ -1,7 +1,8 @@
 import joblib
 from pathlib import Path
 
-MODEL_DIR = Path(r"C:\F1-AI\models\lap_time_prediction")
+MODEL_DIR = Path(__file__).parent.parent.parent.parent / "models" / "lap_time_prediction"
+
 
 _model = None
 _feature_cols = None

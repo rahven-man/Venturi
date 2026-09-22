@@ -83,7 +83,7 @@ const LEGACY_DRIVERS = [
   { searchKey: "Hakkinen", filename: "Mika-Hakkinen.png" },
   { searchKey: "Mansell", filename: "Nigel-Mansell.png" },
   { searchKey: "Button", filename: "Jenson-Button.png" },
-  { searchKey: "Rosberg", filename: "Nico-Rosberg.png" },
+  { searchKey: "Rosberg", filename: "Nico-Roseberg.png" },
 ];
 
 export function resolveDriverImage(fullName) {

@@ -1,7 +1,7 @@
-// Base URL of our FastAPI backend
-// This stays in one place so if the backend URL ever changes,
-// we only update it here instead of every component
-const API_BASE_URL = "http://127.0.0.1:8000";
+// Base URL of our FastAPI backend.
+// Locally: falls back to 127.0.0.1:8000 automatically.
+// Production (Vercel): set NEXT_PUBLIC_API_URL in the Vercel dashboard to your Render URL.
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
 // Generic function to call any GET endpoint on our backend
 // Every other function in this file will use this one internally

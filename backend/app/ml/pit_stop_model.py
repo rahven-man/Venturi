@@ -2,7 +2,8 @@ import json
 from pathlib import Path
 from xgboost import XGBClassifier
 
-MODEL_DIR = Path(r"C:\F1-AI\models\pit_stop_prediction")
+MODEL_DIR = Path(__file__).parent.parent.parent.parent / "models" / "pit_stop_prediction"
+
 
 _model = None
 _feature_names = None

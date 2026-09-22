@@ -3,11 +3,14 @@
 # ============================================================
 
 # -------------------------
-# Large / Local Data
+# Large / Local Data (raw - NOT committed)
 # -------------------------
 
 data/raw/
 data/cache/
+
+# fastf1_lap_base: EDA/notebook output only, backend does not use it
+data/processed/fastf1_lap_base/
 
 # -------------------------
 # Generated Data
@@ -52,6 +55,10 @@ env/
 
 .vscode/
 .idea/
+
+# AI planning files (internal, not for repo)
+implementation_plan.md
+task.md
 
 # -------------------------
 # OS

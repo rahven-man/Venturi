@@ -1,7 +1,6 @@
 "use client";
 
-import { use, useLayoutEffect, useRef } from "react";
-import gsap from "gsap";
+import { use } from "react";
 import Link from "next/link";
 import useDriverDetail from "@/components/analytics/driverDetail/useDriverDetail";
 import StackCard from "@/components/analytics/driverDetail/StackCard";
@@ -15,28 +14,6 @@ import { driverTheme } from "@/components/analytics/theme";
 export default function DriverDetailPage({ params }) {
   const { id } = use(params);
   const { loading, error, profile, seasonTrend, careerStats, radar, careerMatrix } = useDriverDetail(id);
-
-  const cardRefs = useRef([]);
-
-  useLayoutEffect(() => {
-    if (loading || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const ctx = gsap.context(() => {
-      const refs = cardRefs.current.filter(Boolean);
-      refs.forEach((card, i) => {
-        if (i === refs.length - 1) return;
-          gsap.to(card, {
-          scale: 0.97,
-          opacity: 1,
-          ease: "none",
-          transformOrigin: "center top",
-          scrollTrigger: { trigger: card, start: "top 96px", end: "bottom -40px", scrub: true },
-        });
-      });
-    });
-
-    return () => ctx.revert();
-  }, [loading]);
 
   if (loading) {
     return (
@@ -67,7 +44,7 @@ export default function DriverDetailPage({ params }) {
 
   const availableYears = seasonTrend.map((s) => s.year);
   const cards = [
-    <DriverHeroCard key="hero" profile={profile} variant="A" />,
+    <DriverHeroCard key="hero" profile={profile} />,
     availableYears.length > 0 && (
       <SeasonPerformanceCard key="season" driverId={id} availableYears={availableYears} variant="B" />
     ),
@@ -95,7 +72,7 @@ export default function DriverDetailPage({ params }) {
 
       <div className="px-8 md:px-14 pt-6 pb-40">
         {cards.map((card, i) => (
-          <StackCard key={i} innerRef={(el) => (cardRefs.current[i] = el)} zIndex={i + 1}>
+          <StackCard key={card.key ?? i}>
             {card}
           </StackCard>
         ))}

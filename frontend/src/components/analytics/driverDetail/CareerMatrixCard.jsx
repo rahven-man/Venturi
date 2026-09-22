@@ -20,11 +20,9 @@ function cellLabel(race) {
   return "NO POINTS";
 }
 
-export default function CareerMatrixCard({ careerMatrix, variant }) {
+export default function CareerMatrixCard({ careerMatrix }) {
   const [selected, setSelected] = useState(null);
-  const gradient = variant === "A"
-    ? `linear-gradient(120deg, ${driverTheme.bgMid} 0%, ${driverTheme.bgDeep} 100%)`
-    : `linear-gradient(120deg, ${driverTheme.steel} 0%, ${driverTheme.bgMid} 100%)`;
+
   const summary = useMemo(() => ({
     races: careerMatrix.length,
     wins: careerMatrix.filter((race) => race.is_win).length,
@@ -32,12 +30,32 @@ export default function CareerMatrixCard({ careerMatrix, variant }) {
   }), [careerMatrix]);
 
   return (
-    <div className="relative overflow-hidden p-8" style={{ background: gradient, borderRadius: "18px", border: "1px solid rgba(193,232,255,0.18)", minHeight: "32rem" }}>
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px heatmap-scanline" style={{ background: driverTheme.paleBlue }} />
+    <div
+      className="relative overflow-hidden p-8 rounded-[20px]"
+      style={{
+        backgroundColor: "#052659",
+        border: "1px solid rgba(193,232,255,0.16)",
+        boxShadow: "0 20px 45px -12px rgba(0, 0, 0, 0.65)",
+        minHeight: "32rem",
+      }}
+    >
+      {/* Telemetry micro-grid texture overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-20 z-0"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(193,232,255,0.12) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(193,232,255,0.12) 1px, transparent 1px)
+          `,
+          backgroundSize: "28px 28px",
+        }}
+      />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px heatmap-scanline z-0" style={{ background: driverTheme.paleBlue }} />
+
       <div className="relative z-10 flex flex-wrap items-start justify-between gap-5">
         <div>
-          <p className="mb-2 text-[10px] tracking-[0.3em]" style={{ fontFamily: "var(--font-technical)", color: driverTheme.skyLight }}>RACE-BY-RACE TELEMETRY</p>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "1.8rem", color: driverTheme.paleBlue }}>CAREER RESULTS MATRIX</h2>
+          <p className="mb-1 text-[10px] tracking-[0.24em] uppercase" style={{ fontFamily: "var(--font-technical)", color: driverTheme.skyLight }}>RACE-BY-RACE TELEMETRY</p>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "1.7rem", color: driverTheme.paleBlue }}>CAREER RESULTS MATRIX</h2>
         </div>
         <div className="flex gap-5 text-right">
           {[['RACES', summary.races], ['WINS', summary.wins], ['DNF', summary.dnfs]].map(([label, value]) => (
@@ -53,7 +71,7 @@ export default function CareerMatrixCard({ careerMatrix, variant }) {
         <p className="relative z-10 mt-10" style={{ fontFamily: "var(--font-body)", color: driverTheme.skyLight }}>No race history available.</p>
       ) : (
         <>
-          <div className="relative z-10 mt-8 overflow-hidden rounded-lg p-5" style={{ background: "rgba(2,16,36,0.32)", border: "1px solid rgba(193,232,255,0.12)" }}>
+          <div className="relative z-10 mt-8 overflow-hidden rounded-[14px] p-5" style={{ background: "#021024", border: "1px solid rgba(193,232,255,0.14)", boxShadow: "inset 0 2px 6px rgba(0,0,0,0.6)" }}>
             <div className="mb-4 flex items-center justify-between gap-4">
               <span className="text-[10px] tracking-[0.2em]" style={{ fontFamily: "var(--font-technical)", color: driverTheme.skyLight }}>SEASON / ROUND SEQUENCE</span>
               <span className="hidden text-[10px] tracking-[0.15em] sm:block" style={{ fontFamily: "var(--font-technical)", color: driverTheme.paleBlue }}>P1 ← PERFORMANCE → DNF</span>
@@ -79,7 +97,7 @@ export default function CareerMatrixCard({ careerMatrix, variant }) {
       )}
 
       {selected && (
-        <div className="relative z-10 mt-5 flex flex-wrap items-center justify-between gap-3 rounded-md px-4 py-3" style={{ background: "rgba(2,16,36,0.72)", border: "1px solid rgba(193,232,255,0.25)" }}>
+        <div className="relative z-10 mt-5 flex flex-wrap items-center justify-between gap-3 rounded-md px-4 py-3" style={{ background: "#021024", border: "1px solid rgba(193,232,255,0.25)", boxShadow: "0 4px 14px rgba(0,0,0,0.4)" }}>
           <div>
             <p className="text-[10px] tracking-[0.18em]" style={{ fontFamily: "var(--font-technical)", color: driverTheme.paleBlue }}>{selected.year} / ROUND {selected.round_number}</p>
             <p className="mt-1 text-xs" style={{ fontFamily: "var(--font-body)", color: driverTheme.skyLight }}>{selected.circuit_name}</p>

@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.routers import drivers,teams,circuits,standings,predictions
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
 app = FastAPI()
 app.include_router(drivers.router)
@@ -9,9 +10,13 @@ app.include_router(circuits.router)
 app.include_router(standings.router)
 app.include_router(predictions.router)
 
+# Locally: defaults to localhost:3000.
+# Production (Render): set FRONTEND_URL env var to your Vercel domain.
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[FRONTEND_URL],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

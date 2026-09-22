@@ -5,7 +5,7 @@ import { getDriverSeasonStats } from "@/lib/api";
 import { driverTheme } from "@/components/analytics/theme";
 import StatGrid from "./StatGrid";
 
-export default function SeasonPerformanceCard({ driverId, availableYears, variant }) {
+export default function SeasonPerformanceCard({ driverId, availableYears }) {
   const [year, setYear] = useState(availableYears[availableYears.length - 1]);
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -17,52 +17,74 @@ export default function SeasonPerformanceCard({ driverId, availableYears, varian
         setStats(data);
         setLoading(false);
       })
-        .catch(() => {
+      .catch(() => {
         setStats({ year, gp: { gp_races: 0 }, sprint: { sprint_races: 0 } });
         setLoading(false);
       });
   }, [driverId, year]);
 
-  const gradient =
-    variant === "A"
-      ? `linear-gradient(120deg, ${driverTheme.bgMid} 0%, ${driverTheme.bgDeep} 100%)`
-      : `linear-gradient(120deg, ${driverTheme.steel} 0%, ${driverTheme.bgMid} 100%)`;
-
   const noData = !stats || stats.gp.gp_races === 0;
+
   return (
     <div
-      className="p-8"
+      className="relative overflow-hidden p-8 rounded-[20px]"
       style={{
-        background: gradient,
-        borderRadius: "18px",
-        border: "1px solid rgba(193,232,255,0.1)",
+        backgroundColor: "#052659",
+        border: "1px solid rgba(193,232,255,0.16)",
+        boxShadow: "0 20px 45px -12px rgba(0, 0, 0, 0.65)",
         minHeight: "20rem",
       }}
     >
-      <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
-        <h2
-          style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "1.6rem", color: driverTheme.paleBlue }}
-        >
-          SEASON PERFORMANCE
-        </h2>
+      {/* Telemetry micro-grid texture overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-20 z-0"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(193,232,255,0.12) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(193,232,255,0.12) 1px, transparent 1px)
+          `,
+          backgroundSize: "28px 28px",
+        }}
+      />
+
+      <div className="relative z-10 flex items-center justify-between mb-8 flex-wrap gap-4">
+        <div>
+          <p
+            className="mb-1 text-[10px] tracking-[0.24em] uppercase"
+            style={{ fontFamily: "var(--font-technical)", color: driverTheme.skyLight }}
+          >
+            ANNUAL CAMPAIGN // TELEMETRY
+          </p>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 600,
+              fontSize: "1.7rem",
+              color: driverTheme.paleBlue,
+            }}
+          >
+            SEASON PERFORMANCE
+          </h2>
+        </div>
 
         <select
           value={year}
           onChange={(e) => setYear(Number(e.target.value))}
-          className="px-4 py-2 text-sm outline-none"
+          className="px-4 py-2 text-sm outline-none cursor-pointer"
           style={{
             fontFamily: "var(--font-technical)",
-            background: "rgba(2,16,36,0.5)",
+            background: "#021024",
             color: driverTheme.paleBlue,
             border: "1px solid rgba(193,232,255,0.25)",
-            borderRadius: "6px",
+            borderRadius: "8px",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
           }}
         >
           {availableYears
             .slice()
             .reverse()
             .map((y) => (
-              <option key={y} value={y} style={{ color: "#021024" }}>
+              <option key={y} value={y} style={{ background: "#021024", color: "#C1E8FF" }}>
                 {y}
               </option>
             ))}
@@ -70,13 +92,13 @@ export default function SeasonPerformanceCard({ driverId, availableYears, varian
       </div>
 
       {loading ? (
-        <p style={{ fontFamily: "var(--font-body)", color: driverTheme.skyLight }}>Loading…</p>
+        <p className="relative z-10" style={{ fontFamily: "var(--font-body)", color: driverTheme.skyLight }}>Loading…</p>
       ) : noData ? (
-        <p style={{ fontFamily: "var(--font-body)", color: driverTheme.skyLight }}>
+        <p className="relative z-10" style={{ fontFamily: "var(--font-body)", color: driverTheme.skyLight }}>
           Didn&apos;t participate in {year}.
         </p>
       ) : (
-        <div className="flex flex-col gap-8">
+        <div className="relative z-10 flex flex-col gap-8">
           <div>
             <p className="mb-3 text-xs tracking-[0.2em]" style={{ fontFamily: "var(--font-technical)", color: driverTheme.skyLight }}>
               GRAND PRIX

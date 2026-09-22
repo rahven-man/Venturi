@@ -1,7 +1,6 @@
 "use client";
 
-import { use, useLayoutEffect, useRef } from "react";
-import gsap from "gsap";
+import { use } from "react";
 import Link from "next/link";
 import AnalyticsNav from "@/components/analytics/AnalyticsNav";
 import StackCard from "@/components/analytics/driverDetail/StackCard";
@@ -17,23 +16,36 @@ import { driverTheme } from "@/components/analytics/theme";
 export default function TeamDetailPage({ params }) {
   const { id } = use(params);
   const { loading, error, profile, seasonTrend, careerStats } = useTeamDetail(id);
-  const cardRefs = useRef([]);
 
-  useLayoutEffect(() => {
-    if (loading || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
-    const ctx = gsap.context(() => {
-      cardRefs.current.filter(Boolean).slice(0, -1).forEach((card) => {
-        gsap.to(card, { scale: 0.97, opacity: 1, ease: "none", transformOrigin: "center top", scrollTrigger: { trigger: card, start: "top 96px", end: "bottom -40px", scrub: true } });
-      });
-    });
-    return () => ctx.revert();
-  }, [loading]);
+  if (loading) {
+    return (
+      <main
+        className="flex min-h-screen items-center justify-center"
+        style={{
+          background: `linear-gradient(160deg, ${driverTheme.bgDeep}, ${driverTheme.bgMid})`,
+          color: driverTheme.paleBlue,
+        }}
+      >
+        Loading team…
+      </main>
+    );
+  }
 
-  if (loading) return <main className="flex min-h-screen items-center justify-center" style={{ background: `linear-gradient(160deg, ${driverTheme.bgDeep}, ${driverTheme.bgMid})`, color: driverTheme.paleBlue }}>Loading team…</main>;
-  if (error || !profile) return <main className="flex min-h-screen flex-col items-center justify-center gap-4" style={{ background: driverTheme.bgDeep, color: driverTheme.paleBlue }}><p>Couldn&apos;t load this team.</p><Link href="/analytics/teams">← BACK TO TEAMS</Link></main>;
+  if (error || !profile) {
+    return (
+      <main
+        className="flex min-h-screen flex-col items-center justify-center gap-4"
+        style={{ background: driverTheme.bgDeep, color: driverTheme.paleBlue }}
+      >
+        <p>Couldn&apos;t load this team.</p>
+        <Link href="/analytics/teams">← BACK TO TEAMS</Link>
+      </main>
+    );
+  }
+
   const years = seasonTrend.map((item) => item.year);
   const cards = [
-    <TeamHeroCard key="hero" profile={profile} variant="A" />,
+    <TeamHeroCard key="hero" profile={profile} />,
     <TeamSeasonPerformanceCard key="season" teamId={id} availableYears={years} variant="B" />,
     <TeamCareerStatsCard key="career" careerStats={careerStats} variant="A" />,
     <TeamTrendCard key="trend" seasonTrend={seasonTrend} variant="B" />,
@@ -42,10 +54,29 @@ export default function TeamDetailPage({ params }) {
   ];
 
   return (
-    <main style={{ background: `linear-gradient(160deg, ${driverTheme.bgDeep} 0%, ${driverTheme.bgMid} 55%, ${driverTheme.bgDeep} 100%)`, minHeight: "100vh" }}>
+    <main
+      style={{
+        background: `linear-gradient(160deg, ${driverTheme.bgDeep} 0%, ${driverTheme.bgMid} 55%, ${driverTheme.bgDeep} 100%)`,
+        minHeight: "100vh",
+      }}
+    >
       <AnalyticsNav active="teams" />
-      <div className="px-8 pb-6 pt-8 md:px-14"><Link href="/analytics/teams" className="text-xs tracking-[0.2em]" style={{ fontFamily: "var(--font-technical)", color: driverTheme.skyLight }}>← ALL TEAMS</Link></div>
-      <div className="px-8 pb-40 pt-2 md:px-14">{cards.map((card, index) => <StackCard key={card.key ?? index} innerRef={(element) => { cardRefs.current[index] = element; }} zIndex={index + 1}>{card}</StackCard>)}</div>
+      <div className="px-8 pb-6 pt-8 md:px-14">
+        <Link
+          href="/analytics/teams"
+          className="text-xs tracking-[0.2em]"
+          style={{ fontFamily: "var(--font-technical)", color: driverTheme.skyLight }}
+        >
+          ← ALL TEAMS
+        </Link>
+      </div>
+      <div className="px-8 pb-40 pt-2 md:px-14">
+        {cards.map((card, index) => (
+          <StackCard key={card.key ?? index}>
+            {card}
+          </StackCard>
+        ))}
+      </div>
     </main>
   );
 }

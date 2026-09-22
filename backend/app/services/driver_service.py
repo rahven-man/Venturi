@@ -145,17 +145,22 @@ def get_driver_season_stats(driver_id: int, year: int):
 def get_driver_career_stats(driver_id: int):
     con = get_connection()
 
-    career = con.execute(f"""
+    career_df = con.execute(f"""
         SELECT
             COUNT(*) AS gp_entered,
             COALESCE(SUM(points), 0) AS career_points,
+            CAST(COALESCE(SUM(CASE WHEN position = 1 THEN 1 ELSE 0 END), 0) AS INT) AS wins,
+            CAST(COALESCE(SUM(CASE WHEN position <= 3 THEN 1 ELSE 0 END), 0) AS INT) AS podiums,
+            CAST(COALESCE(SUM(CASE WHEN grid = 1 THEN 1 ELSE 0 END), 0) AS INT) AS poles,
+            CAST(COALESCE(SUM(CASE WHEN fastest_lap_rank = 1 THEN 1 ELSE 0 END), 0) AS INT) AS fastest_laps,
+            COALESCE(ROUND(COALESCE(SUM(points), 0) * 1.0 / NULLIF(COUNT(*), 0), 2), 0.0) AS pts_per_race,
             MIN(CASE WHEN position IS NOT NULL THEN position END) AS highest_finish,
-            SUM(CASE WHEN position <= 3 THEN 1 ELSE 0 END) AS podiums,
             MIN(CASE WHEN grid IS NOT NULL AND grid > 0 THEN grid END) AS highest_grid,
-            SUM(CASE WHEN is_classified = 'f' THEN 1 ELSE 0 END) AS dnfs
+            CAST(COALESCE(SUM(CASE WHEN is_classified = 'f' THEN 1 ELSE 0 END), 0) AS INT) AS dnfs
         FROM race_results
         WHERE driver_id = {driver_id}
-    """).df().to_dict(orient="records")[0]
+    """).df().replace({np.nan: None})
+    career = career_df.to_dict(orient="records")[0]
 
     champs = con.execute(f"""
         SELECT COUNT(*) AS world_championships
@@ -164,6 +169,7 @@ def get_driver_career_stats(driver_id: int):
     """).df().to_dict(orient="records")[0]["world_championships"]
 
     career["world_championships"] = int(champs)
+    career["gp_won"] = career["wins"]
     return career
 
 
