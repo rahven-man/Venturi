@@ -11,12 +11,15 @@ app.include_router(standings.router)
 app.include_router(predictions.router)
 
 # Locally: defaults to localhost:3000.
-# Production (Render): set FRONTEND_URL env var to your Vercel domain.
-FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
+# Production (Render): set FRONTEND_URL env var to your Vercel domain(s) (comma-separated if multiple).
+raw_origins = os.getenv("FRONTEND_URL", "http://localhost:3000")
+allow_origins = [orig.strip() for orig in raw_origins.split(",") if orig.strip()]
+if "http://localhost:3000" not in allow_origins:
+    allow_origins.append("http://localhost:3000")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL],
+    allow_origins=allow_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

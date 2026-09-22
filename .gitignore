@@ -12,6 +12,9 @@ data/cache/
 # fastf1_lap_base: EDA/notebook output only, backend does not use it
 data/processed/fastf1_lap_base/
 
+# Large binary files that must never go to GitHub (>100MB limit)
+*.exe
+
 # -------------------------
 # Generated Data
 # -------------------------
